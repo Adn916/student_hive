@@ -1,11 +1,15 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:student/model/data_model.dart';
+import 'package:student/screens/edit.dart';
 
 ValueNotifier<List <studentModel>>studentListNotifier = ValueNotifier([]);
 
 void addstudent(studentModel value)async {
- final studentdb = await Hive.openBox<studentModel>('student_db');
+ final studentdb = await Hive.openBox<studentModel>('student_db'); 
 
  await studentdb.add(value);
 
@@ -26,3 +30,4 @@ Future<void> deleteStudent(int index)async{
   await studentdb.deleteAt(index);
   getAllStudents();
 }
+

@@ -16,8 +16,8 @@ class studentModel{
   final String cls;
 
   @HiveField(4)
-  final String address;
+  final String phone;
 
-  studentModel({required this.name, required this.age, required this.cls, required this.address,this.index});
+  studentModel({required this.name, required this.age, required this.cls, required this.phone,this.index});
 
 }

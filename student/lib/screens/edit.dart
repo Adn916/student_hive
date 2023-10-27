@@ -1,31 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:student/screens/home.dart';
-import 'package:student/model/data_model.dart';
-import 'package:student/db/functions/function.dart';
 
-class details extends StatefulWidget {
-  const details({super.key});
+class editpage extends StatefulWidget {
+  const editpage({super.key});
 
   @override
-  State<details> createState() => _detailsState();
+  State<editpage> createState() => _editpageState();
 }
 
-class _detailsState extends State<details> {
-
-  final ImagePicker image=ImagePicker();
-
-  final _namecontroller = TextEditingController();
-  final _agecontroller = TextEditingController();
-  final _classcontroller = TextEditingController();
-  final _phonecontroller = TextEditingController();
-
-  final _sub = GlobalKey<FormState>();
-
-  File? _image;
-
+class _editpageState extends State<editpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +15,6 @@ class _detailsState extends State<details> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Form(
-          key: _sub,
           child: Column(
             children: [
               Padding(
@@ -47,12 +28,11 @@ class _detailsState extends State<details> {
                         // backgroundImage: _image==null? FileImage(_image!): null
                       ),
                       onTap:() {
-                       _pickImage();
                       },
                     ),
                     SizedBox(height: 10,),
                     TextFormField(
-                      controller: _namecontroller,
+                      // controller: _namecontroller,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.person),
                         border: OutlineInputBorder(
@@ -61,17 +41,17 @@ class _detailsState extends State<details> {
                         hintText: "Your Name",
                         labelText: "Name",
                       ),
-                      validator: (value) {
-                        if(value == null || value.isEmpty){
-                          return "value is empty";
-                        }else{
-                          return null;
-                        }
-                      },
+                      // validator: (value) {
+                      //   if(value == null || value.isEmpty){
+                      //     return "value is empty";
+                      //   }else{
+                      //     return null;
+                      //   }
+                      // },
                     ),
                     SizedBox(height: 15,),
                     TextFormField(
-                      controller: _agecontroller,
+                      // controller: _agecontroller,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.calendar_month),
@@ -81,17 +61,17 @@ class _detailsState extends State<details> {
                         labelText: "Age",
                         hintText: "Your Age",
                       ),
-                      validator: (value) {
-                        if(value == null || value.isEmpty){
-                          return "value is empty";
-                        }else{
-                          return null;
-                        }
-                      },
+                      // validator: (value) {
+                      //   if(value == null || value.isEmpty){
+                      //     return "value is empty";
+                      //   }else{
+                      //     return null;
+                      //   }
+                      // },
                     ),
                     SizedBox(height: 15,),
                     TextFormField(
-                      controller: _classcontroller,
+                      // controller: _classcontroller,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.class_),
                         border: OutlineInputBorder(
@@ -100,17 +80,17 @@ class _detailsState extends State<details> {
                         labelText: "Class",
                         hintText: "Your Class",
                       ),
-                      validator: (value) {
-                        if(value == null || value.isEmpty){
-                          return "value is empty";
-                        }else{
-                          return null;
-                        }
-                      },
+                      // validator: (value) {
+                      //   if(value == null || value.isEmpty){
+                      //     return "value is empty";
+                      //   }else{
+                      //     return null;
+                      //   }
+                      // },
                     ),
                     SizedBox(height: 15,),
                     TextFormField(
-                      controller: _phonecontroller,
+                      // controller: _phonecontroller,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.phone),
@@ -120,20 +100,17 @@ class _detailsState extends State<details> {
                         labelText: "Phone Number",
                         hintText: "Your Phone Number",
                       ),
-                      validator: (value) {
-                        if(value == null || value.isEmpty){
-                          return "value is empty";
-                        }else{
-                          return null;
-                        }
-                      },
+                      // validator: (value) {
+                      //   if(value == null || value.isEmpty){
+                      //     return "value is empty";
+                      //   }else{
+                      //     return null;
+                      //   }
+                      // },
                     ),
                     ElevatedButton.icon(onPressed: (){ 
-                      if(_sub.currentState!.validate()){
-                      _onAddStudentButtonClicked();
-                      Navigator.pop(context, MaterialPageRoute(builder: (context)=> home()));
-                      }
-                    }, icon: Icon(Icons.save), label: Text("SUBMIT"))
+                      
+                    }, icon: Icon(Icons.update), label: Text("UPDATE"))
               
                   ],
                 ),
@@ -144,23 +121,4 @@ class _detailsState extends State<details> {
       ),
     );
   }
-  Future <void> _onAddStudentButtonClicked()async {
-    final _name=_namecontroller.text.trim();
-    final _age=_agecontroller.text.trim();
-    final _class=_classcontroller.text.trim();
-    final _address=_phonecontroller.text.trim();
-    if (_name.isEmpty || _age.isEmpty || _class.isEmpty || _address.isEmpty){
-      return;
-    }
-    print('$_name , $_age , $_class , $_address');
-    final _student = studentModel(name: _name, age: _age, cls: _class, phone: _address);
-    addstudent(_student);
-  }
-  Future<void> _pickImage()async {
-  final image=await ImagePicker().pickImage(source: ImageSource.camera);
-  setState(() {
-    _image=image as File?;
-  });
-}
-
 }

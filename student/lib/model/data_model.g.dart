@@ -20,7 +20,7 @@ class studentModelAdapter extends TypeAdapter<studentModel> {
       name: fields[1] as String,
       age: fields[2] as String,
       cls: fields[3] as String,
-      address: fields[4] as String,
+      phone: fields[4] as String,
       index: fields[0] as int?,
     );
   }
@@ -38,7 +38,7 @@ class studentModelAdapter extends TypeAdapter<studentModel> {
       ..writeByte(3)
       ..write(obj.cls)
       ..writeByte(4)
-      ..write(obj.address);
+      ..write(obj.phone);
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student/screens/edit.dart';
 import 'text.dart';
 import 'package:student/db/functions/function.dart';
 import 'package:student/model/data_model.dart';
@@ -22,7 +23,10 @@ class _homeState extends State<home> {
         actions: [
           IconButton(onPressed: (){
             TextField();
-          }, icon: IconButton(onPressed: (){}, icon: Icon(Icons.search)))
+          }, icon: IconButton(onPressed: (){
+            
+          }, 
+          icon: Icon(Icons.search)))
         ],
       ),
       body: ValueListenableBuilder(
@@ -38,7 +42,10 @@ class _homeState extends State<home> {
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                IconButton(onPressed: (){}, 
+                IconButton(onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>editpage()));
+
+                }, 
                 icon: Icon(Icons.edit),color: Colors.blue,),
                 IconButton(onPressed: (){
 
