@@ -159,7 +159,7 @@ class _detailsState extends State<details> {
   Future<void> _pickImage()async {
   final image=await ImagePicker().pickImage(source: ImageSource.camera);
   setState(() {
-    _image=image as File?;
+    _image=image as File?; 
   });
 }
 

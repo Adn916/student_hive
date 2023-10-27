@@ -1,13 +1,54 @@
-import 'package:flutter/material.dart';
+import 'dart:ffi';
 
-class editpage extends StatefulWidget {
-  const editpage({super.key});
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:student/model/data_model.dart';
+import 'package:student/screens/home.dart';
+
+class editscreen extends StatefulWidget {
+  final String name;
+  final String age;
+  final String cls;
+  final String phone;
+  final int index;
+
+  const editscreen({super.key, required this.name, required this.age, required this.cls, required this.phone,required this.index});
 
   @override
-  State<editpage> createState() => _editpageState();
+  State<editscreen> createState() => _editscreenState();
 }
 
-class _editpageState extends State<editpage> {
+class _editscreenState extends State<editscreen> {
+  final _namecontroller =TextEditingController();
+  final _agecontroller =TextEditingController();
+  final _classcontroller =TextEditingController();
+  final _phonecontroller =TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _namecontroller.text = widget.name;
+    _agecontroller.text = widget.age;
+    _classcontroller.text = widget.cls;
+    _phonecontroller.text = widget.phone;
+  }
+
+  Future<void> updatestudent(int index)async{
+    final studentdb=await Hive.openBox<studentModel>('student_db');
+    if(index >=0 && index<studentdb.length){
+      final stdupdate = studentModel(
+        name: _namecontroller.text, 
+        age: _agecontroller.text, 
+        cls: _classcontroller.text,
+        phone: _phonecontroller.text,
+        );
+        await studentdb.putAt(index, stdupdate);
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>home()));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,11 +69,12 @@ class _editpageState extends State<editpage> {
                         // backgroundImage: _image==null? FileImage(_image!): null
                       ),
                       onTap:() {
+                      //  _pickImage();
                       },
                     ),
                     SizedBox(height: 10,),
                     TextFormField(
-                      // controller: _namecontroller,
+                      controller: _namecontroller,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.person),
                         border: OutlineInputBorder(
@@ -41,17 +83,11 @@ class _editpageState extends State<editpage> {
                         hintText: "Your Name",
                         labelText: "Name",
                       ),
-                      // validator: (value) {
-                      //   if(value == null || value.isEmpty){
-                      //     return "value is empty";
-                      //   }else{
-                      //     return null;
-                      //   }
-                      // },
+                      
                     ),
                     SizedBox(height: 15,),
                     TextFormField(
-                      // controller: _agecontroller,
+                      controller: _agecontroller,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.calendar_month),
@@ -61,17 +97,11 @@ class _editpageState extends State<editpage> {
                         labelText: "Age",
                         hintText: "Your Age",
                       ),
-                      // validator: (value) {
-                      //   if(value == null || value.isEmpty){
-                      //     return "value is empty";
-                      //   }else{
-                      //     return null;
-                      //   }
-                      // },
+                      
                     ),
                     SizedBox(height: 15,),
                     TextFormField(
-                      // controller: _classcontroller,
+                      controller: _classcontroller,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.class_),
                         border: OutlineInputBorder(
@@ -80,17 +110,11 @@ class _editpageState extends State<editpage> {
                         labelText: "Class",
                         hintText: "Your Class",
                       ),
-                      // validator: (value) {
-                      //   if(value == null || value.isEmpty){
-                      //     return "value is empty";
-                      //   }else{
-                      //     return null;
-                      //   }
-                      // },
+                      
                     ),
                     SizedBox(height: 15,),
                     TextFormField(
-                      // controller: _phonecontroller,
+                      controller: _phonecontroller,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.phone),
@@ -100,17 +124,12 @@ class _editpageState extends State<editpage> {
                         labelText: "Phone Number",
                         hintText: "Your Phone Number",
                       ),
-                      // validator: (value) {
-                      //   if(value == null || value.isEmpty){
-                      //     return "value is empty";
-                      //   }else{
-                      //     return null;
-                      //   }
-                      // },
+                      
                     ),
                     ElevatedButton.icon(onPressed: (){ 
-                      
-                    }, icon: Icon(Icons.update), label: Text("UPDATE"))
+                     Navigator.push(context, MaterialPageRoute(builder: (context)=>home()));
+                     updatestudent(widget.index);
+                    }, icon: Icon(Icons.save), label: Text("UPDATE"))
               
                   ],
                 ),

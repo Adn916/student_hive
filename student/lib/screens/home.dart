@@ -24,7 +24,7 @@ class _homeState extends State<home> {
           IconButton(onPressed: (){
             TextField();
           }, icon: IconButton(onPressed: (){
-            
+
           }, 
           icon: Icon(Icons.search)))
         ],
@@ -43,8 +43,14 @@ class _homeState extends State<home> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>editpage()));
-
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>editscreen(
+                    index: index,
+                    name: data.name,
+                    age: data.age,
+                    cls: data.cls,
+                    phone: data.phone,
+                    // image: data.image,
+                  )));
                 }, 
                 icon: Icon(Icons.edit),color: Colors.blue,),
                 IconButton(onPressed: (){
