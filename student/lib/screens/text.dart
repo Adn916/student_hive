@@ -29,7 +29,10 @@ class _detailsState extends State<details> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("ADD STUDENT"),
+      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Form(
@@ -50,7 +53,7 @@ class _detailsState extends State<details> {
                        _pickImage();
                       },
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 20,),
                     TextFormField(
                       controller: _namecontroller,
                       decoration: InputDecoration(
@@ -69,8 +72,9 @@ class _detailsState extends State<details> {
                         }
                       },
                     ),
-                    SizedBox(height: 15,),
+                    SizedBox(height: 20,),
                     TextFormField(
+                      maxLength: 2,
                       controller: _agecontroller,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
@@ -89,7 +93,7 @@ class _detailsState extends State<details> {
                         }
                       },
                     ),
-                    SizedBox(height: 15,),
+                    SizedBox(height: 10,),
                     TextFormField(
                       controller: _classcontroller,
                       decoration: InputDecoration(
@@ -108,12 +112,14 @@ class _detailsState extends State<details> {
                         }
                       },
                     ),
-                    SizedBox(height: 15,),
+                    SizedBox(height: 20,),
                     TextFormField(
+                      maxLength: 10,
                       controller: _phonecontroller,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.phone),
+                        prefixText: "+91 ",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),

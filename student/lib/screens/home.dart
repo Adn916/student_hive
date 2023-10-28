@@ -22,9 +22,8 @@ class _homeState extends State<home> {
         backgroundColor: Colors.green,
         actions: [
           IconButton(onPressed: (){
-            TextField();
+            
           }, icon: IconButton(onPressed: (){
-
           }, 
           icon: Icon(Icons.search)))
         ],
@@ -37,6 +36,7 @@ class _homeState extends State<home> {
         itemBuilder: (ctx, index) {
           final data = studentList[index];
           return ListTile(
+            leading: CircleAvatar(),
             title: Text(data.name),
             subtitle: Text(data.age),
             trailing: Row(
