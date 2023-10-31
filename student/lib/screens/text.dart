@@ -21,6 +21,7 @@ class _detailsState extends State<details> {
   final _agecontroller = TextEditingController();
   final _classcontroller = TextEditingController();
   final _phonecontroller = TextEditingController();
+  final _imagePicker = ImagePicker();
 
   final _sub = GlobalKey<FormState>();
 
@@ -50,7 +51,7 @@ class _detailsState extends State<details> {
                         backgroundImage: _image!=null? FileImage(_image!): AssetImage('assets/person.png')as ImageProvider,
                       ),
                       onTap:() {
-                       _pickImage();
+                        _showImageSourceDialog();
                       },
                     ),
                     SizedBox(height: 20,),
@@ -161,15 +162,35 @@ class _detailsState extends State<details> {
     final _student = studentModel(name: _name, age: _age, cls: _class, phone: _address,image: _image!.path);
     addstudent(_student);
   }
-  Future<void> _pickImage()async {
-  final image=await ImagePicker().pickImage(source: ImageSource.camera);
-  if(image == null){
-    return ;
-  }else{
-    setState(() {
-      _image = File(image.path);
-    });
+  void _showImageSourceDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
+              onPressed: () => _pickImage(ImageSource.camera),
+              child: Text("Camera"),
+            ),
+            TextButton(
+              onPressed: () => _pickImage(ImageSource.gallery),
+              child: Text("Gallery"),
+            ),
+          ],
+        ),
+      ),
+    );
   }
-}
+
+    void _pickImage(ImageSource source) async {
+    final image = await _imagePicker.pickImage(source: source);
+    if (image != null) {
+      setState(() {
+        _image = File(image.path);
+      });
+    }
+    Navigator.pop(context);
+  }
 
 }
