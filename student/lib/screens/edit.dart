@@ -1,10 +1,9 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:student/model/data_model.dart';
 import 'package:student/screens/home.dart';
-
+ 
 class editscreen extends StatefulWidget {
   final String name;
   final String age;
@@ -35,7 +34,7 @@ class _editscreenState extends State<editscreen> {
     _agecontroller.text = widget.age;
     _classcontroller.text = widget.cls;
     _phonecontroller.text = widget.phone;
-    _imagecontroller.value = widget.image as TextEditingValue;
+    // _imagecontroller.value = widget.image as TextEditingValue;
   }
 
   Future<void> updatestudent(int index)async{
@@ -68,7 +67,7 @@ class _editscreenState extends State<editscreen> {
             children: [
               Padding(
                 padding: EdgeInsets.all(20),
-                child: Column(   
+                child: Column(
                   children: [
                     GestureDetector(
                       child: CircleAvatar(

@@ -47,7 +47,7 @@ class _detailsState extends State<details> {
                       child: CircleAvatar(
                         child: Icon(Icons.add_a_photo),
                         radius: 50,
-                        backgroundImage: _image!=null? FileImage(_image!): AssetImage('student/assets/person.png')as ImageProvider,
+                        backgroundImage: _image!=null? FileImage(_image!): AssetImage('assets/person.png')as ImageProvider,
                       ),
                       onTap:() {
                        _pickImage();
