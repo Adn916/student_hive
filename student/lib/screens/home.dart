@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:student/screens/details.dart';
 import 'package:student/screens/edit.dart';
+import 'package:student/screens/search.dart';
 import 'text.dart';
 import 'package:student/db/functions/function.dart';
 import 'package:student/model/data_model.dart';
-
+ 
 class home extends StatefulWidget {
   const home({super.key});
 
@@ -24,19 +28,30 @@ class _homeState extends State<home> {
           IconButton(onPressed: (){
             
           }, icon: IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>const search()));
+            
           }, 
-          icon: Icon(Icons.search)))
+          icon: Icon(Icons.search)
+          )
+          )
         ],
       ),
       body: ValueListenableBuilder(
       valueListenable: studentListNotifier,
       builder: (BuildContext context, List<studentModel> studentList, child){
-
+      
         return ListView.separated(
         itemBuilder: (ctx, index) {
           final data = studentList[index];
           return ListTile(
-            leading: CircleAvatar(),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>stdetails()));
+            },
+            leading: CircleAvatar(
+              radius: 30,
+              backgroundImage: data.image!=null?
+              FileImage(File(data.image!)):AssetImage('student/assets/person.png') as ImageProvider
+            ),
             title: Text(data.name),
             subtitle: Text(data.age),
             trailing: Row(
@@ -49,12 +64,12 @@ class _homeState extends State<home> {
                     age: data.age,
                     cls: data.cls,
                     phone: data.phone,
-                    // image: data.image,
+                    image: data.image!,
                   )));
                 }, 
                 icon: Icon(Icons.edit),color: Colors.blue,),
                 IconButton(onPressed: (){
-
+      
                   deleteStudent(index);
                 
                 },                
@@ -69,7 +84,7 @@ class _homeState extends State<home> {
         itemCount: studentList.length,
       );
       } ,
-    ),
+        ),
   
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.yellow,

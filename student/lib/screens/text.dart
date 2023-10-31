@@ -12,7 +12,7 @@ class details extends StatefulWidget {
   @override
   State<details> createState() => _detailsState();
 }
-
+ 
 class _detailsState extends State<details> {
 
   final ImagePicker image=ImagePicker();
@@ -47,7 +47,7 @@ class _detailsState extends State<details> {
                       child: CircleAvatar(
                         child: Icon(Icons.add_a_photo),
                         radius: 50,
-                        // backgroundImage: _image==null? FileImage(_image!): null
+                        backgroundImage: _image!=null? FileImage(_image!): AssetImage('student/assets/person.png')as ImageProvider,
                       ),
                       onTap:() {
                        _pickImage();
@@ -158,15 +158,18 @@ class _detailsState extends State<details> {
     if (_name.isEmpty || _age.isEmpty || _class.isEmpty || _address.isEmpty){
       return;
     }
-    print('$_name , $_age , $_class , $_address');
-    final _student = studentModel(name: _name, age: _age, cls: _class, phone: _address);
+    final _student = studentModel(name: _name, age: _age, cls: _class, phone: _address,image: _image!.path);
     addstudent(_student);
   }
   Future<void> _pickImage()async {
   final image=await ImagePicker().pickImage(source: ImageSource.camera);
-  setState(() {
-    _image=image as File?; 
-  });
+  if(image == null){
+    return ;
+  }else{
+    setState(() {
+      _image = File(image.path);
+    });
+  }
 }
 
 }

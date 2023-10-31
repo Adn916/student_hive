@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:student/model/data_model.dart';
+import 'package:student/model/data_model.dart'; 
 import 'package:student/screens/edit.dart';
 
 ValueNotifier<List <studentModel>>studentListNotifier = ValueNotifier([]);

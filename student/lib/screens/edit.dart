@@ -8,11 +8,12 @@ import 'package:student/screens/home.dart';
 class editscreen extends StatefulWidget {
   final String name;
   final String age;
-  final String cls;
+  final String cls; 
   final String phone;
   final int index;
+  final String image;
 
-  const editscreen({super.key, required this.name, required this.age, required this.cls, required this.phone,required this.index});
+  const editscreen({super.key, required this.name, required this.age, required this.cls, required this.phone,required this.index, required this.image});
 
   @override
   State<editscreen> createState() => _editscreenState();
@@ -23,6 +24,7 @@ class _editscreenState extends State<editscreen> {
   final _agecontroller =TextEditingController();
   final _classcontroller =TextEditingController();
   final _phonecontroller =TextEditingController();
+  final _imagecontroller = TextEditingController();
 
   @override
   void initState() {
@@ -33,6 +35,7 @@ class _editscreenState extends State<editscreen> {
     _agecontroller.text = widget.age;
     _classcontroller.text = widget.cls;
     _phonecontroller.text = widget.phone;
+    _imagecontroller.value = widget.image as TextEditingValue;
   }
 
   Future<void> updatestudent(int index)async{
@@ -43,6 +46,7 @@ class _editscreenState extends State<editscreen> {
         age: _agecontroller.text, 
         cls: _classcontroller.text,
         phone: _phonecontroller.text,
+        image: _imagecontroller.text
         );
         await studentdb.putAt(index, stdupdate);
         Navigator.push(context, MaterialPageRoute(builder: (context)=>home()));
