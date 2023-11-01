@@ -78,7 +78,7 @@ class _detailsState extends State<details> {
                       maxLength: 2,
                       controller: _agecontroller,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
+                      decoration:  InputDecoration(
                         prefixIcon: Icon(Icons.calendar_month),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),

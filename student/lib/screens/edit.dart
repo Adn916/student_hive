@@ -42,6 +42,7 @@ class _editscreenState extends State<editscreen> {
     if(index >=0 && index<studentdb.length){
       final stdupdate = studentModel(
         name: _namecontroller.text, 
+        
         age: _agecontroller.text, 
         cls: _classcontroller.text,
         phone: _phonecontroller.text,

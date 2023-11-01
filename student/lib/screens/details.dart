@@ -1,11 +1,24 @@
-import 'package:flutter/material.dart';
+import 'dart:ffi';
 
+import 'package:flutter/material.dart';
+import 'home.dart';
+
+class studentdetails {
+  final String name;
+  final String age;
+  final String clas;
+  final String phone;
+
+  studentdetails({required this.name, required this.age, required this.clas, required this.phone});
+}
 class stdetails extends StatefulWidget {
   const stdetails({super.key});
 
   @override
   State<stdetails> createState() => _stdetailsState();
 }
+
+// List<String> studentdetails = []
 
 class _stdetailsState extends State<stdetails> {
   @override
@@ -15,14 +28,8 @@ class _stdetailsState extends State<stdetails> {
         centerTitle: true,
         title: Text("Student details"),
       ),
-      body: Column(
-        children: [
-          ListView(
-            children: [
-            ],
-          )
-        ],
-      ),
+      body: Container(
+      )
     );
   }
 }
