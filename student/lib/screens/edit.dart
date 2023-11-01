@@ -1,6 +1,9 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:student/model/data_model.dart';
 import 'package:student/screens/home.dart';
  
@@ -10,9 +13,9 @@ class editscreen extends StatefulWidget {
   final String cls; 
   final String phone;
   final int index;
-  final String image;
+  dynamic image;
 
-  const editscreen({super.key, required this.name, required this.age, required this.cls, required this.phone,required this.index, required this.image});
+  editscreen({super.key, required this.name, required this.age, required this.cls, required this.phone,required this.index, required this.image});
 
   @override
   State<editscreen> createState() => _editscreenState();
@@ -23,7 +26,7 @@ class _editscreenState extends State<editscreen> {
   final _agecontroller =TextEditingController();
   final _classcontroller =TextEditingController();
   final _phonecontroller =TextEditingController();
-  final _imagecontroller = TextEditingController();
+  File? _image;
 
   @override
   void initState() {
@@ -34,7 +37,7 @@ class _editscreenState extends State<editscreen> {
     _agecontroller.text = widget.age;
     _classcontroller.text = widget.cls;
     _phonecontroller.text = widget.phone;
-    // _imagecontroller.value = widget.image as TextEditingValue;
+    _image = widget.image != ''? File(widget.image): null;
   }
 
   Future<void> updatestudent(int index)async{
@@ -46,7 +49,6 @@ class _editscreenState extends State<editscreen> {
         age: _agecontroller.text, 
         cls: _classcontroller.text,
         phone: _phonecontroller.text,
-        image: _imagecontroller.text
         );
         await studentdb.putAt(index, stdupdate);
         Navigator.push(context, MaterialPageRoute(builder: (context)=>home()));
@@ -74,11 +76,14 @@ class _editscreenState extends State<editscreen> {
                       child: CircleAvatar(
                         child: Icon(Icons.add_a_photo),
                         radius: 50,
-                        // backgroundImage: _image==null? FileImage(_image!): null
+                        backgroundImage: _image!=null
+                        ? FileImage(_image!):
+                        AssetImage('assets/person.png') as ImageProvider,
                       ),
                       onTap:() {
-                      //  _pickImage();
+                      _editimage();
                       },
+                      onDoubleTap: () => _imageEditCam(),
                     ),
                     SizedBox(height: 20,),
                     TextFormField(
@@ -150,5 +155,23 @@ class _editscreenState extends State<editscreen> {
         ),
       ),
     );
+  }
+  Future _editimage()async{
+    final returnImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if(returnImage == null){
+      return;
+    }
+    setState(() {
+      _image = File(returnImage.path);
+    });
+  }
+  _imageEditCam()async{
+    final returnImage = await ImagePicker().pickImage(source: ImageSource.camera);
+    if(returnImage == null){
+      return;
+    }
+    setState(() {
+      _image = File(returnImage.path);
+    });
   }
 }

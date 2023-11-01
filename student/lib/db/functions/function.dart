@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:student/model/data_model.dart'; 
 import 'package:student/screens/edit.dart';
 
-ValueNotifier<List <studentModel>>studentListNotifier = ValueNotifier([]);
+ValueNotifier<List <studentModel>> studentListNotifier = ValueNotifier([]);
 
 void addstudent(studentModel value)async {
  final studentdb = await Hive.openBox<studentModel>('student_db'); 
@@ -17,7 +17,7 @@ void addstudent(studentModel value)async {
   studentListNotifier.notifyListeners();
 } 
 
-Future<void> getAllStudents()async{
+getAllStudents()async{
   final studentdb=await Hive.openBox<studentModel>('student_db');
   studentListNotifier.value.clear();
 

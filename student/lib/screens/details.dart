@@ -1,35 +1,34 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'home.dart';
 
-class studentdetails {
+class studentDetails extends StatefulWidget {
   final String name;
   final String age;
-  final String clas;
+  final String cls;
   final String phone;
 
-  studentdetails({required this.name, required this.age, required this.clas, required this.phone});
-}
-class stdetails extends StatefulWidget {
-  const stdetails({super.key});
+  const studentDetails({super.key, required this.name, required this.age, required this.cls, required this.phone});
 
   @override
-  State<stdetails> createState() => _stdetailsState();
+  State<studentDetails> createState() => _studentDetailsState();
 }
 
-// List<String> studentdetails = []
-
-class _stdetailsState extends State<stdetails> {
+class _studentDetailsState extends State<studentDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Student details"),
+      appBar: AppBar(),
+      body: Center(
+        child: Column(
+          children: [
+            
+            Text(widget.name),
+            Text(widget.age),
+            Text(widget.cls),
+            Text(widget.phone)
+          ],
+        ),
       ),
-      body: Container(
-      )
+
     );
   }
 }

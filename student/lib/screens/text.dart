@@ -60,7 +60,7 @@ class _detailsState extends State<details> {
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.person),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         hintText: "Your Name",
                         labelText: "Name",
@@ -161,6 +161,7 @@ class _detailsState extends State<details> {
     }
     final _student = studentModel(name: _name, age: _age, cls: _class, phone: _address,image: _image!.path);
     addstudent(_student);
+    Navigator.of(context).pop();
   }
   void _showImageSourceDialog() {
     showDialog(
