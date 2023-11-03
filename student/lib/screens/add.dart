@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:student/screens/home.dart';
-import 'package:student/model/data_model.dart';
+import 'package:student/db/model/data_model.dart';
 import 'package:student/db/functions/function.dart';
 
 class details extends StatefulWidget {
@@ -23,7 +24,7 @@ class _detailsState extends State<details> {
   final _phonecontroller = TextEditingController();
   final _imagePicker = ImagePicker();
 
-  final _sub = GlobalKey<FormState>();
+  final _formkey = GlobalKey<FormState>();
 
   File? _image;
 
@@ -37,7 +38,7 @@ class _detailsState extends State<details> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Form(
-          key: _sub,
+          key: _formkey,
           child: Column(
             children: [
               Padding(
@@ -48,7 +49,9 @@ class _detailsState extends State<details> {
                       child: CircleAvatar(
                         child: Icon(Icons.add_a_photo),
                         radius: 50,
-                        backgroundImage: _image!=null? FileImage(_image!): AssetImage('assets/person.png')as ImageProvider,
+                        backgroundImage: _image!=null? 
+                        FileImage(_image!)
+                        : AssetImage('student/assets/person.png')as ImageProvider,
                       ),
                       onTap:() {
                         _showImageSourceDialog();
@@ -78,6 +81,9 @@ class _detailsState extends State<details> {
                       maxLength: 2,
                       controller: _agecontroller,
                       keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
                       decoration:  InputDecoration(
                         prefixIcon: Icon(Icons.calendar_month),
                         border: OutlineInputBorder(
@@ -115,6 +121,9 @@ class _detailsState extends State<details> {
                     ),
                     SizedBox(height: 20,),
                     TextFormField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
                       maxLength: 10,
                       controller: _phonecontroller,
                       keyboardType: TextInputType.number,
@@ -136,9 +145,9 @@ class _detailsState extends State<details> {
                       },
                     ),
                     ElevatedButton.icon(onPressed: (){ 
-                      if(_sub.currentState!.validate()){
+                      if(_formkey.currentState!.validate()){
                       _onAddStudentButtonClicked();
-                      Navigator.pop(context, MaterialPageRoute(builder: (context)=> home()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> home()));
                       }
                     }, icon: Icon(Icons.save), label: Text("SUBMIT"))
               
@@ -171,11 +180,11 @@ class _detailsState extends State<details> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             TextButton(
-              onPressed: () => _pickImage(ImageSource.camera),
+              onPressed: () =>  _pickImage(ImageSource.camera),
               child: Text("Camera"),
             ),
             TextButton(
-              onPressed: () => _pickImage(ImageSource.gallery),
+              onPressed: () =>  _pickImage(ImageSource.gallery) (),
               child: Text("Gallery"),
             ),
           ],
@@ -184,7 +193,7 @@ class _detailsState extends State<details> {
     );
   }
 
-    void _pickImage(ImageSource source) async {
+    _pickImage(ImageSource source) async {
     final image = await _imagePicker.pickImage(source: source);
     if (image != null) {
       setState(() {

@@ -9,7 +9,7 @@ class studentDetails extends StatefulWidget {
   const studentDetails({super.key, required this.name, required this.age, required this.cls, required this.phone});
 
   @override
-  State<studentDetails> createState() => _studentDetailsState();
+  State<studentDetails> createState() => _studentDetailsState(); 
 }
 
 class _studentDetailsState extends State<studentDetails> {

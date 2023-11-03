@@ -4,7 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:student/model/data_model.dart';
+import 'package:student/db/functions/function.dart';
+import 'package:student/db/model/data_model.dart';
 import 'package:student/screens/home.dart';
  
 class editscreen extends StatefulWidget {
@@ -26,7 +27,8 @@ class _editscreenState extends State<editscreen> {
   final _agecontroller =TextEditingController();
   final _classcontroller =TextEditingController();
   final _phonecontroller =TextEditingController();
-  File? _image;
+
+  String ? _image;
 
   @override
   void initState() {
@@ -37,22 +39,21 @@ class _editscreenState extends State<editscreen> {
     _agecontroller.text = widget.age;
     _classcontroller.text = widget.cls;
     _phonecontroller.text = widget.phone;
-    _image = widget.image != ''? File(widget.image): null;
+    _image = widget.image != '' ? widget.image : null;
   }
 
   Future<void> updatestudent(int index)async{
     final studentdb=await Hive.openBox<studentModel>('student_db');
-    if(index >=0 && index<studentdb.length){
       final stdupdate = studentModel(
-        name: _namecontroller.text, 
-        
+        name: _namecontroller.text,
         age: _agecontroller.text, 
         cls: _classcontroller.text,
         phone: _phonecontroller.text,
+        image: _image,
         );
         await studentdb.putAt(index, stdupdate);
+        getAllStudents();
         Navigator.push(context, MaterialPageRoute(builder: (context)=>home()));
-    }
   }
 
   @override
@@ -77,7 +78,7 @@ class _editscreenState extends State<editscreen> {
                         child: Icon(Icons.add_a_photo),
                         radius: 50,
                         backgroundImage: _image!=null
-                        ? FileImage(_image!):
+                        ? FileImage(File(_image!)):
                         AssetImage('assets/person.png') as ImageProvider,
                       ),
                       onTap:() {
@@ -146,7 +147,6 @@ class _editscreenState extends State<editscreen> {
                      Navigator.push(context, MaterialPageRoute(builder: (context)=>home()));
                      updatestudent(widget.index);
                     }, icon: Icon(Icons.save), label: Text("UPDATE"))
-              
                   ],
                 ),
               )
@@ -162,7 +162,7 @@ class _editscreenState extends State<editscreen> {
       return;
     }
     setState(() {
-      _image = File(returnImage.path);
+      _image = returnImage.path;
     });
   }
   _imageEditCam()async{
@@ -171,7 +171,7 @@ class _editscreenState extends State<editscreen> {
       return;
     }
     setState(() {
-      _image = File(returnImage.path);
+      _image = returnImage.path;
     });
   }
 }

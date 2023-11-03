@@ -1,13 +1,11 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:student/screens/details.dart';
 import 'package:student/screens/edit.dart';
-
-import 'text.dart';
+import 'add.dart';
 import 'package:student/db/functions/function.dart';
-import 'package:student/model/data_model.dart';
+import 'package:student/db/model/data_model.dart';
 
 class home extends StatefulWidget {
   const home({super.key});
@@ -52,9 +50,10 @@ class _homeState extends State<home> {
           title: Text("Students info"),
           backgroundColor: Colors.green,
           actions: [
-            IconButton(
-                onPressed: () {},
-                icon: IconButton(onPressed: () {}, icon: Icon(Icons.home)))
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Icon(Icons.home),
+            )
           ],
         ),
         body: Container(
@@ -85,11 +84,11 @@ class _homeState extends State<home> {
                   valueListenable: studentListNotifier,
                   builder: (BuildContext ctx, List<studentModel> studentList,
                       Widget? child) {
-                    final displayedStudent =
+                        final displaystudent =
                         searchList.isNotEmpty ? searchList : studentList;
                     return ListView.separated(
                       itemBuilder: (ctx, index) {
-                        final data = displayedStudent[index];
+                        final data = displaystudent[index];
                         return ListTile(
                           onTap: () {
                             Navigator.push(
@@ -143,24 +142,27 @@ class _homeState extends State<home> {
                       separatorBuilder: (ctx, index) {
                         return Divider();
                       },
-                      itemCount: searchList.length,
+                      itemCount: displaystudent.length,
                     );
                   },
                 ),
               ),
-              FloatingActionButton.extended(
-                backgroundColor: Colors.yellow,
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => details()));
-                },
-                icon: Icon(
-                  Icons.person_add,
-                  color: Colors.red,
-                ),
-                label: Text(
-                  "Add Student",
-                  style: TextStyle(color: Colors.black),
+              Container(
+                padding: EdgeInsets.only(bottom: 20),
+                child: FloatingActionButton.extended(
+                  backgroundColor: Colors.yellow,
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => details()));
+                  },
+                  icon: Icon(
+                    Icons.person_add,
+                    color: Colors.red,
+                  ),
+                  label: Text(
+                    "Add Student",
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ),
             ],
