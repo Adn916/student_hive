@@ -53,7 +53,6 @@ class _editscreenState extends State<editscreen> {
         );
         await studentdb.putAt(index, stdupdate);
         getAllStudents();
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>home()));
   }
 
   @override
@@ -141,10 +140,9 @@ class _editscreenState extends State<editscreen> {
                         labelText: "Phone Number",
                         hintText: "Your Phone Number",
                       ),
-                      
                     ),
                     ElevatedButton.icon(onPressed: (){ 
-                     Navigator.push(context, MaterialPageRoute(builder: (context)=>home()));
+                     Navigator.pop(context);
                      updatestudent(widget.index);
                     }, icon: Icon(Icons.save), label: Text("UPDATE"))
                   ],

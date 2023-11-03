@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -98,7 +99,9 @@ class _homeState extends State<home> {
                                         name: data.name,
                                         age: data.age,
                                         cls: data.cls,
-                                        phone: data.phone)));
+                                        phone: data.phone, 
+                                        image: 'student/assets/person.png', 
+                                        )));
                           },
                           leading: CircleAvatar(
                               radius: 30,
