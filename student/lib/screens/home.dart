@@ -104,7 +104,7 @@ class _homeState extends State<home> {
                                             age: data.age,
                                             cls: data.cls,
                                             phone: data.phone, 
-                                            image: 'student/assets/person.png', 
+                                            image: data.image,
                                             )));
                               },
                               leading: CircleAvatar(

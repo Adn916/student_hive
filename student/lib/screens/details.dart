@@ -40,9 +40,8 @@ class _studentDetailsState extends State<studentDetails> {
             children: [
               CircleAvatar(
                     radius: 90,
-                    backgroundImage: _image!=null
-                        ? FileImage(File(widget.image)):
-                        AssetImage('assets/person.png') as ImageProvider,
+                    backgroundImage: FileImage(File(widget.image))
+                        // AssetImage('assets/person.png') as ImageProvider,
               ),
               SizedBox(height: 20),
               Card(
