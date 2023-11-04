@@ -30,7 +30,7 @@ class _homeState extends State<home> {
     super.initState();
 
     loadstd();
-    searchResult();
+    getAllStudents();
   }
 
   void searchResult() {
