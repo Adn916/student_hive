@@ -87,63 +87,66 @@ class _homeState extends State<home> {
                       Widget? child) {
                         final displaystudent =
                         searchList.isNotEmpty ? searchList : studentList;
-                    return ListView.separated(
+                    return ListView.builder(
                       itemBuilder: (ctx, index) {
                         final data = displaystudent[index];
-                        return ListTile(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => studentDetails(
-                                        name: data.name,
-                                        age: data.age,
-                                        cls: data.cls,
-                                        phone: data.phone, 
-                                        image: 'student/assets/person.png', 
-                                        )));
-                          },
-                          leading: CircleAvatar(
-                              radius: 30,
-                              backgroundImage: data.image != null
-                                  ? FileImage(File(data.image!))
-                                  : AssetImage('student/assets/person.png')
-                                      as ImageProvider),
-                          title: Text(data.name),
-                          subtitle: Text(data.age),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => editscreen(
-                                                index: index,
-                                                name: data.name,
-                                                age: data.age,
-                                                cls: data.cls,
-                                                phone: data.phone,
-                                                image: data.image,
-                                              )));
-                                },
-                                icon: Icon(Icons.edit),
-                                color: Colors.blue,
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            elevation: 8,
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => studentDetails(
+                                            name: data.name,
+                                            age: data.age,
+                                            cls: data.cls,
+                                            phone: data.phone, 
+                                            image: 'student/assets/person.png', 
+                                            )));
+                              },
+                              leading: CircleAvatar(
+                                  radius: 30,
+                                  backgroundImage: data.image != null
+                                      ? FileImage(File(data.image!))
+                                      : AssetImage('student/assets/person.png')
+                                          as ImageProvider),
+                              title: Text(data.name),
+                              subtitle: Text(data.age),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => editscreen(
+                                                    index: index,
+                                                    name: data.name,
+                                                    age: data.age,
+                                                    cls: data.cls,
+                                                    phone: data.phone,
+                                                    image: data.image,
+                                                  )));
+                                    },
+                                    icon: Icon(Icons.edit),
+                                    color: Colors.blue,
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      deleteStudent(index);
+                                    },
+                                    icon: Icon(Icons.delete),
+                                    color: Colors.red,
+                                  ),
+                                ],
                               ),
-                              IconButton(
-                                onPressed: () {
-                                  deleteStudent(index);
-                                },
-                                icon: Icon(Icons.delete),
-                                color: Colors.red,
-                              ),
-                            ],
+                            ),
                           ),
                         );
-                      },
-                      separatorBuilder: (ctx, index) {
-                        return Divider();
                       },
                       itemCount: displaystudent.length,
                     );

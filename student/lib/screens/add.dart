@@ -51,7 +51,7 @@ class _detailsState extends State<details> {
                         radius: 50,
                         backgroundImage: _image!=null? 
                         FileImage(_image!)
-                        : AssetImage('student/assets/person.png')as ImageProvider,
+                        : AssetImage('assets/person.png')as ImageProvider,
                       ),
                       onTap:() {
                         _showImageSourceDialog();
