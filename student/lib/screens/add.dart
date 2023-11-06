@@ -179,11 +179,11 @@ class _detailsState extends State<details> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             TextButton(
-              onPressed: () =>  _pickImage(ImageSource.camera),
+              onPressed: () =>  _pickImage(ImageSource.gallery),
               child: Text("Camera"),
             ),
             TextButton(
-              onPressed: () =>  _pickImage(ImageSource.gallery) (),
+              onPressed: () =>  _pickImage(ImageSource.camera) (),
               child: Text("Gallery"),
             ),
           ],
