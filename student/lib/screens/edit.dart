@@ -7,7 +7,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:student/db/functions/function.dart';
 import 'package:student/db/model/data_model.dart';
 import 'package:student/screens/home.dart';
- 
+
+  final namecontroller =TextEditingController();
+  final agecontroller =TextEditingController();
+  final classcontroller =TextEditingController();
+  final phonecontroller =TextEditingController();
+
+  String ? image;
 class editscreen extends StatefulWidget {
   final String name;
   final String age;
@@ -16,44 +22,34 @@ class editscreen extends StatefulWidget {
   final int index;
   dynamic image;
 
-  editscreen({super.key, required this.name, required this.age, required this.cls, required this.phone,required this.index, required this.image});
+  editscreen({super.key, 
+  required this.name, 
+  required this.age, 
+  required this.cls, 
+  required this.phone,
+  required this.index, 
+  required this.image});
 
   @override
   State<editscreen> createState() => _editscreenState();
 }
 
 class _editscreenState extends State<editscreen> {
-  final _namecontroller =TextEditingController();
-  final _agecontroller =TextEditingController();
-  final _classcontroller =TextEditingController();
-  final _phonecontroller =TextEditingController();
-
-  String ? _image;
+ 
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    _namecontroller.text = widget.name;
-    _agecontroller.text = widget.age;
-    _classcontroller.text = widget.cls;
-    _phonecontroller.text = widget.phone;
-    _image = widget.image != '' ? widget.image : null;
+    namecontroller.text = widget.name;
+    agecontroller.text = widget.age;
+    classcontroller.text = widget.cls;
+    phonecontroller.text = widget.phone;
+    image = widget.image != '' ? widget.image : null;
   }
 
-  Future<void> updatestudent(int index)async{
-    final studentdb=await Hive.openBox<studentModel>('student_db');
-      final stdupdate = studentModel(
-        name: _namecontroller.text,
-        age: _agecontroller.text, 
-        cls: _classcontroller.text,
-        phone: _phonecontroller.text,
-        image: _image,
-        );
-        await studentdb.putAt(index, stdupdate);
-        getAllStudents();
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +72,8 @@ class _editscreenState extends State<editscreen> {
                       child: CircleAvatar(
                         child: Icon(Icons.add_a_photo),
                         radius: 50,
-                        backgroundImage: _image!=null
-                        ? FileImage(File(_image!)):
+                        backgroundImage: image!=null
+                        ? FileImage(File(image!)):
                         AssetImage('assets/person.png') as ImageProvider,
                       ),
                       onTap:() {
@@ -87,7 +83,7 @@ class _editscreenState extends State<editscreen> {
                     ),
                     SizedBox(height: 20,),
                     TextFormField(
-                      controller: _namecontroller,
+                      controller: namecontroller,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.person),
                         border: OutlineInputBorder(
@@ -101,7 +97,7 @@ class _editscreenState extends State<editscreen> {
                     SizedBox(height: 20,),
                     TextFormField(
                       maxLength: 2,
-                      controller: _agecontroller,
+                      controller: agecontroller,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.calendar_month),
@@ -115,7 +111,7 @@ class _editscreenState extends State<editscreen> {
                     ),
                     SizedBox(height: 15,),
                     TextFormField(
-                      controller: _classcontroller,
+                      controller: classcontroller,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.class_),
                         border: OutlineInputBorder(
@@ -129,7 +125,7 @@ class _editscreenState extends State<editscreen> {
                     SizedBox(height: 20,),
                     TextFormField(
                       maxLength: 10,
-                      controller: _phonecontroller,
+                      controller: phonecontroller,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.phone),
@@ -160,7 +156,7 @@ class _editscreenState extends State<editscreen> {
       return;
     }
     setState(() {
-      _image = returnImage.path;
+      image = returnImage.path;
     });
   }
   _imageEditCam()async{
@@ -169,7 +165,7 @@ class _editscreenState extends State<editscreen> {
       return;
     }
     setState(() {
-      _image = returnImage.path;
+      image = returnImage.path;
     });
   }
 }

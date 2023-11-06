@@ -33,7 +33,7 @@ class _studentDetailsState extends State<studentDetails> {
         title: Text('Profile'),
         centerTitle: true,
       ),
-      body: Center(
+      body: Center( 
         child: Container(
           margin: EdgeInsets.all(90),
           child: Column(
@@ -41,7 +41,6 @@ class _studentDetailsState extends State<studentDetails> {
               CircleAvatar(
                     radius: 90,
                     backgroundImage: FileImage(File(widget.image))
-                        // AssetImage('assets/person.png') as ImageProvider,
               ),
               SizedBox(height: 20),
               Card(

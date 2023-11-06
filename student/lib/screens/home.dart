@@ -1,6 +1,4 @@
-import 'dart:ffi';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:student/screens/details.dart';
 import 'package:student/screens/edit.dart';
@@ -16,7 +14,7 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
-  String _search = '';
+  String _search = ''; 
   List<studentModel> searchList = [];
   List<studentModel> studentList = [];
 
